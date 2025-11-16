@@ -16,6 +16,11 @@ class MainPageLocators:
         ".//section[contains(@class, 'Modal_modal_opened__') and "
         "contains(@class, 'Modal_modal__')]//h2[text()='Детали ингредиента']"
     )
+    ORDER_MODAL_OPENED = (
+        By.XPATH,
+        ".//section[contains(@class, 'Modal_modal_opened__')]//p[text()='Ваш заказ начали готовить']"
+    )
+    ORDER_NUMBER = (By.XPATH, "//h2[contains(@class, 'Modal_modal__title')]")
 
     BURGER_CONSTRUCTOR_AREA = (By.XPATH, ".//ul[@class='BurgerConstructor_basket__list__l9dp_']")
 
@@ -33,3 +38,5 @@ class MainPageLocators:
 
     ORDER_FEED_BUTTON = (By.XPATH, ".//p[text()='Лента Заказов']")
     CONSTRUCTOR_BUTTON = (By.XPATH, ".//p[text()='Конструктор']")
+    PLACE_ORDER_BUTTON = (By.XPATH, ".//button[text()='Оформить заказ']")
+
