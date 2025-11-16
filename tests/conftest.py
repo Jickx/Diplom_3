@@ -4,6 +4,7 @@ from data.urls import Urls
 from data.user_data import generate_user_data
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
+import allure
 
 
 @pytest.fixture(params=["chrome", "firefox"])
@@ -44,11 +45,12 @@ def logged_in_driver(driver, user):
     Фикстура для выполнения входа в систему.
     Использует существующего пользователя и возвращает драйвер после логина.
     """
-    driver.get(Urls.LOGIN_URL)
-    login_page = LoginPage(driver)
-    login_page.login(user["email"], user["password"])
+    with allure.step("Авторизация тестового пользователя"):
+        driver.get(Urls.LOGIN_URL)
+        login_page = LoginPage(driver)
+        login_page.login(user["email"], user["password"])
 
-    main_page = MainPage(driver)
-    main_page.wait_for_assemble_burger_title()
+        main_page = MainPage(driver)
+        main_page.wait_for_assemble_burger_title()
 
     return driver

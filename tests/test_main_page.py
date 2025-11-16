@@ -1,11 +1,14 @@
 from pages.main_page import MainPage
+import allure
 
 
+@allure.suite("Главная страница")
 class TestMainPage:
     """
     Тесты для проверки основной функциональности главной страницы.
     """
 
+    @allure.title("Проверка перехода по клику на «Конструктор»")
     def test_navigation_to_constructor(self, driver):
         """
         Проверка перехода по клику на «Конструктор».
@@ -16,6 +19,7 @@ class TestMainPage:
         main_page.wait_for_assemble_burger_title()
         assert main_page.is_assemble_burger_title_displayed()
 
+    @allure.title("Проверка перехода по клику на «Лента заказов»")
     def test_navigation_to_order_feed(self, driver):
         """
         Проверка перехода по клику на «Лента заказов».
@@ -25,6 +29,7 @@ class TestMainPage:
         main_page.wait_for_feed_url()
         assert "/feed" in driver.current_url
 
+    @allure.title("Проверка появления всплывающего окна с деталями ингредиента")
     def test_ingredient_modal_opens(self, driver):
         """
         Проверка появления всплывающего окна с деталями при клике на ингредиент.
@@ -34,6 +39,7 @@ class TestMainPage:
         main_page.wait_for_modal_header()
         assert main_page.is_modal_header_displayed()
 
+    @allure.title("Проверка закрытия всплывающего окна с деталями по клику на крестик")
     def test_ingredient_modal_closes(self, driver):
         """
         Проверка закрытия всплывающего окна с деталями по клику на крестик.
@@ -45,6 +51,7 @@ class TestMainPage:
         main_page.wait_for_modal_to_close()
         assert main_page.is_modal_header_not_present()
 
+    @allure.title("Проверка увеличения счётчика ингредиента при добавлении в заказ")
     def test_ingredient_counter_increases_on_add(self, driver):
         """
         Проверка увеличения счётчика ингредиента при добавлении в заказ.

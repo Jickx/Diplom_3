@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
 
 
 class BasePage:
@@ -14,6 +15,7 @@ class BasePage:
         """
         self.driver = driver
 
+    @allure.step("Найти элемент по локатору {locator}")
     def find_element(self, locator, time=10):
         """
         Находит один веб-элемент по локатору с ожиданием.
@@ -26,6 +28,7 @@ class BasePage:
             message=f"Can't find element by locator {locator}"
         )
 
+    @allure.step("Найти элементы по локатору {locator}")
     def find_elements(self, locator, time=10):
         """
         Находит все веб-элементы по локатору с ожиданием.
@@ -38,6 +41,7 @@ class BasePage:
             message=f"Can't find elements by locator {locator}"
         )
 
+    @allure.step("Кликнуть на элемент по локатору {locator}")
     def click_on_element(self, locator):
         """
         Кликает на веб-элемент.
@@ -45,6 +49,7 @@ class BasePage:
         """
         self.find_element(locator).click()
 
+    @allure.step("Ожидать кликабельности элемента по локатору {locator}")
     def wait_for_element_to_be_clickable(self, locator, time=5):
         """
         Ожидает, пока элемент не станет кликабельным.
@@ -55,6 +60,7 @@ class BasePage:
             EC.element_to_be_clickable(locator)
         )
 
+    @allure.step("Ожидать видимости элемента по локатору {locator}")
     def wait_for_element_visibility(self, locator, time=5):
         """
         Ожидает, пока элемент не станет видимым.
@@ -65,6 +71,7 @@ class BasePage:
             EC.visibility_of_element_located(locator)
         )
 
+    @allure.step("Ожидать невидимости элемента по локатору {locator}")
     def wait_for_element_invisibility(self, locator, time=5):
         """
         Ожидает, пока элемент не станет невидимым.
@@ -75,6 +82,7 @@ class BasePage:
             EC.invisibility_of_element_located(locator)
         )
 
+    @allure.step("Ожидать URL: {url}")
     def wait_for_url_to_be(self, url, time=5):
         """
         Ожидает, пока URL страницы не станет равным указанному.
@@ -83,10 +91,12 @@ class BasePage:
         """
         WebDriverWait(self.driver, time).until(EC.url_to_be(url))
 
+    @allure.step("Получить текущий URL")
     def get_current_url(self):
         """Возвращает текущий URL страницы."""
         return self.driver.current_url
 
+    @allure.step("Ожидать выполнения условия")
     def wait_for_condition(self, condition, time=5):
         """
         Ожидает выполнения произвольного условия.
@@ -95,6 +105,7 @@ class BasePage:
         """
         return WebDriverWait(self.driver, time).until(condition)
 
+    @allure.step("Кликнуть на элемент по локатору {locator} с помощью JS")
     def js_click(self, locator):
         """
         Выполняет клик с помощью JavaScript, чтобы обойти перекрытие элементов.
@@ -103,6 +114,7 @@ class BasePage:
         element = self.find_element(locator)
         self.driver.execute_script("arguments[0].click();", element)
 
+    @allure.step("Перетащить элемент из {source_locator} в {target_locator} с помощью JS")
     def drag_and_drop(self, source_locator, target_locator):
         """
         Выполняет перетаскивание элемента с помощью JavaScript.
