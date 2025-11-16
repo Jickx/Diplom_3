@@ -19,6 +19,7 @@ def driver(request):
         driver = webdriver.Chrome(options=options)
     elif request.param == "firefox":
         options = webdriver.FirefoxOptions()
+        options.set_preference("dom.webnotifications.enabled", False)
         driver = webdriver.Firefox(options=options)
         driver.set_window_size(1920, 1080)
     else:

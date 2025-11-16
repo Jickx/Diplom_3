@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from locators.main_page_locators import MainPageLocators
 from data.urls import Urls
 import allure
+from selenium.common.exceptions import TimeoutException
 
 
 class MainPage(BasePage):
@@ -34,9 +35,15 @@ class MainPage(BasePage):
         self.wait_for_url_to_be(Urls.FEED_URL)
 
     @allure.step("Клик на первый ингредиент (булку)")
-    def click_first_ingredient(self):
-        """Кликает на первый ингредиент (булку)."""
-        self.click_on_element(MainPageLocators.FIRST_BUN)
+    def click_first_ingredient(self, js=False):
+        """
+        Кликает на первый ингредиент (булку).
+        :param js: Если True, использует JS для клика.
+        """
+        if js:
+            self.js_click(MainPageLocators.FIRST_BUN)
+        else:
+            self.click_on_element(MainPageLocators.FIRST_BUN)
 
     @allure.step("Ожидание заголовка в модальном окне ингредиента")
     def wait_for_modal_header(self):
@@ -60,8 +67,11 @@ class MainPage(BasePage):
 
     def is_modal_header_not_present(self):
         """Проверяет, отсутствует ли модальное окно на странице."""
-        elems = self.driver.find_elements(*MainPageLocators.MODAL_OPENED)
-        return len(elems) == 0 or all(not e.is_displayed() for e in elems)
+        try:
+            self.wait_for_element_invisibility(MainPageLocators.MODAL_OPENED, time=1)
+            return True
+        except TimeoutException:
+            return False
 
     @allure.step("Клик на кнопку 'Оформить заказ'")
     def click_place_order_button(self):

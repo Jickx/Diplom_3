@@ -45,7 +45,7 @@ class TestMainPage:
         Проверка закрытия всплывающего окна с деталями по клику на крестик.
         """
         main_page = MainPage(driver)
-        main_page.click_first_ingredient()
+        main_page.click_first_ingredient(js=True)
         main_page.wait_for_modal_header()
         main_page.click_modal_close_button()
         main_page.wait_for_modal_to_close()
