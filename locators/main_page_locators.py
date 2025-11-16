@@ -2,6 +2,9 @@ from selenium.webdriver.common.by import By
 
 
 class MainPageLocators:
+    """
+    Локаторы для главной страницы (конструктор бургеров).
+    """
     MODAL_CLOSE_BUTTON = (
         By.XPATH,
         ".//section[contains(@class, 'Modal_modal_opened__') and"
@@ -39,4 +42,3 @@ class MainPageLocators:
     ORDER_FEED_BUTTON = (By.XPATH, ".//p[text()='Лента Заказов']")
     CONSTRUCTOR_BUTTON = (By.XPATH, ".//p[text()='Конструктор']")
     PLACE_ORDER_BUTTON = (By.XPATH, ".//button[text()='Оформить заказ']")
-

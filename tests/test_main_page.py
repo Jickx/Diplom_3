@@ -2,8 +2,14 @@ from pages.main_page import MainPage
 
 
 class TestMainPage:
+    """
+    Тесты для проверки основной функциональности главной страницы.
+    """
 
     def test_navigation_to_constructor(self, driver):
+        """
+        Проверка перехода по клику на «Конструктор».
+        """
         main_page = MainPage(driver)
         main_page.click_order_feed_button()
         main_page.click_constructor_button()
@@ -11,18 +17,27 @@ class TestMainPage:
         assert main_page.is_assemble_burger_title_displayed()
 
     def test_navigation_to_order_feed(self, driver):
+        """
+        Проверка перехода по клику на «Лента заказов».
+        """
         main_page = MainPage(driver)
         main_page.click_order_feed_button()
         main_page.wait_for_feed_url()
         assert "/feed" in driver.current_url
 
     def test_ingredient_modal_opens(self, driver):
+        """
+        Проверка появления всплывающего окна с деталями при клике на ингредиент.
+        """
         main_page = MainPage(driver)
         main_page.click_first_ingredient()
         main_page.wait_for_modal_header()
         assert main_page.is_modal_header_displayed()
 
     def test_ingredient_modal_closes(self, driver):
+        """
+        Проверка закрытия всплывающего окна с деталями по клику на крестик.
+        """
         main_page = MainPage(driver)
         main_page.click_first_ingredient()
         main_page.wait_for_modal_header()
@@ -31,6 +46,9 @@ class TestMainPage:
         assert main_page.is_modal_header_not_present()
 
     def test_ingredient_counter_increases_on_add(self, driver):
+        """
+        Проверка увеличения счётчика ингредиента при добавлении в заказ.
+        """
         main_page = MainPage(driver)
         ingredient_element = main_page.get_first_filling()
         initial_counter_text = main_page.get_ingredient_counter(ingredient_element)

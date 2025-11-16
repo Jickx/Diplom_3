@@ -1,11 +1,20 @@
 from pages.main_page import MainPage
 from pages.feed_page import FeedPage
 from data.urls import Urls
+import allure
 
 
+@allure.suite("Лента заказов")
 class TestOrderFeed:
+    """
+    Тесты для проверки функциональности ленты заказов.
+    """
 
+    @allure.title("При создании заказа счетчик 'Выполнено за все время' увеличивается")
     def test_total_orders_counter_increases(self, logged_in_driver):
+        """
+        Проверяет, что после создания нового заказа счетчик "Выполнено за всё время" увеличивается.
+        """
         main_page = MainPage(logged_in_driver)
         feed_page = FeedPage(logged_in_driver)
 
@@ -29,7 +38,11 @@ class TestOrderFeed:
 
         assert final_total_orders > initial_total_orders, "Счетчик 'Выполнено за всё время' не увеличился"
 
+    @allure.title("При создании заказа счетчик 'Выполнено за сегодня' увеличивается")
     def test_today_orders_counter_increases(self, logged_in_driver):
+        """
+        Проверяет, что после создания нового заказа счетчик "Выполнено за сегодня" увеличивается.
+        """
         main_page = MainPage(logged_in_driver)
         feed_page = FeedPage(logged_in_driver)
 
@@ -53,7 +66,11 @@ class TestOrderFeed:
 
         assert final_today_orders > initial_today_orders, "Счетчик 'Выполнено сегодня' не увеличился"
 
+    @allure.title("После оформления заказа его номер появляется в разделе 'В работе'")
     def test_order_number_appears_in_progress(self, logged_in_driver):
+        """
+        Проверяет, что номер свежесозданного заказа появляется в разделе "В работе" на странице ленты заказов.
+        """
         main_page = MainPage(logged_in_driver)
         feed_page = FeedPage(logged_in_driver)
 
