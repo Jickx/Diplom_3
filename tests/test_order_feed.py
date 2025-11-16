@@ -52,3 +52,21 @@ class TestOrderFeed:
         final_today_orders = feed_page.get_today_orders_count()
 
         assert final_today_orders > initial_today_orders, "Счетчик 'Выполнено сегодня' не увеличился"
+
+    def test_order_number_appears_in_progress(self, logged_in_driver):
+        main_page = MainPage(logged_in_driver)
+        feed_page = FeedPage(logged_in_driver)
+
+        # 1. Перейти в конструктор и создать заказ
+        main_page.click_constructor_button()
+        main_page.wait_for_assemble_burger_title()
+        order_number = main_page.create_order_and_get_number()
+        assert order_number is not None, "Номер заказа не получен"
+
+        # 2. Перейти в ленту заказов
+        main_page.click_order_feed_button()
+        feed_page.wait_for_url_to_be(Urls.FEED_URL)
+
+        # 3. Проверить, что заказ появился в ленте в статусе "В работе"
+        feed_page.wait_for_order_in_progress(order_number)
+        assert order_number in feed_page.get_in_progress_orders(), "Номер заказа не найден в ленте 'В работе'"

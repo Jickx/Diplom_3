@@ -10,3 +10,7 @@ class FeedPageLocators:
         By.XPATH,
         ".//div[p[text()='Выполнено за сегодня:']]/p[contains(@class, 'OrderFeed_number__2MbrQ')]"
     )
+    IN_PROGRESS_ORDERS = (
+        By.XPATH,
+        "//ul[@class='OrderFeed_orderListReady__1YFem OrderFeed_orderList__cBvyi']/li[contains(@class,'text_type_digits-default')]"
+    )
