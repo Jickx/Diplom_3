@@ -31,4 +31,15 @@ class TestMainPage:
         assert main_page.is_modal_header_not_present()
 
     def test_ingredient_counter_increases_on_add(self, driver):
-        pass
+        main_page = MainPage(driver)
+        ingredient_element = main_page.get_first_filling()
+        initial_counter_text = main_page.get_ingredient_counter(ingredient_element)
+        initial_count = int(initial_counter_text) if initial_counter_text else 0
+
+        main_page.drag_first_filling_to_constructor()
+
+        expected_count = str(initial_count + 1)
+        main_page.wait_for_ingredient_counter_value(main_page.get_first_filling(), expected_count)
+
+        final_counter_text = main_page.get_ingredient_counter(main_page.get_first_filling())
+        assert final_counter_text == expected_count

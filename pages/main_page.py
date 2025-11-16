@@ -1,5 +1,3 @@
-from selenium.webdriver.common.action_chains import ActionChains
-
 from pages.base_page import BasePage
 from locators.main_page_locators import MainPageLocators
 from urls import Urls
@@ -42,26 +40,6 @@ class MainPage(BasePage):
         elems = self.driver.find_elements(*MainPageLocators.MODAL_OPENED)
         return len(elems) == 0 or all(not e.is_displayed() for e in elems)
 
-    def get_bun_element(self):
-        return self.find_element(MainPageLocators.BUN_CARD)
-
-    def get_constructor_area(self):
-        return self.find_element(MainPageLocators.BURGER_CONSTRUCTOR_AREA)
-
-    def get_initial_bun_counters(self):
-        return self.get_bun_element().find_elements(*MainPageLocators.INGREDIENT_COUNTER)
-
-    def drag_bun_to_constructor(self):
-        bun_element = self.get_bun_element()
-        constructor_area = self.get_constructor_area()
-        ActionChains(self.driver).drag_and_drop(bun_element, constructor_area).perform()
-
-    def wait_for_counter_to_appear(self):
-        self.wait_for_condition(lambda d: self.get_bun_counter_text() == '2')
-
-    def get_bun_counter_text(self):
-        return self.get_bun_element().find_element(*MainPageLocators.INGREDIENT_COUNTER).text
-
     def get_first_filling(self):
         return self.find_element(MainPageLocators.FIRST_FILLING)
 
@@ -69,10 +47,8 @@ class MainPage(BasePage):
         counters = ingredient_element.find_elements(*MainPageLocators.INGREDIENT_COUNTER)
         return counters[0].text if counters else None
 
-    def drag_ingredient_to_constructor(self, ingredient_element):
-        constructor_area = self.get_constructor_area()
-        ActionChains(self.driver).drag_and_drop(ingredient_element, constructor_area).perform()
+    def drag_first_filling_to_constructor(self):
+        self.drag_and_drop(MainPageLocators.FIRST_FILLING, MainPageLocators.BURGER_CONSTRUCTOR_AREA)
 
     def wait_for_ingredient_counter_value(self, ingredient_element, value):
         self.wait_for_condition(lambda d: self.get_ingredient_counter(ingredient_element) == value)
-

@@ -16,13 +16,10 @@ class MainPageLocators:
         ".//section[contains(@class, 'Modal_modal_opened__') and "
         "contains(@class, 'Modal_modal__')]//h2[text()='Детали ингредиента']"
     )
-    MODAL_HEADER = (By.XPATH, ".//h2[text()='Детали ингредиента']")
-    
+
     BURGER_CONSTRUCTOR_AREA = (By.XPATH, ".//ul[@class='BurgerConstructor_basket__list__l9dp_']")
 
     INGREDIENT_COUNTER = (By.XPATH, ".//p[@class='counter_counter__num__3nue1']")
-    BUN_INGREDIENT = (By.XPATH, ".//p[text()='Флюоресцентная булка R2-D3']")
-    BUN_CARD = (By.XPATH, ".//p[text()='Флюоресцентная булка R2-D3']/ancestor::a")
 
     FIRST_BUN = (By.XPATH, "//h2[text()='Булки']/following-sibling::ul[1]/a[1]")
     FIRST_SAUCE = (By.XPATH, "//h2[text()='Соусы']/following-sibling::ul[1]/a[1]")

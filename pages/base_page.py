@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
@@ -44,3 +45,13 @@ class BasePage:
 
     def wait_for_condition(self, condition, time=5):
         return WebDriverWait(self.driver, time).until(condition)
+
+    def drag_and_drop(self, source_locator, target_locator):
+        element_from = self.find_element(source_locator)
+        element_to = self.find_element(target_locator)
+
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element_from)
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element_to)
+
+        actions = ActionChains(self.driver)
+        actions.click_and_hold(element_from).pause(0.5).move_to_element(element_to).pause(0.5).release().perform()
