@@ -27,7 +27,7 @@ class TestMainPage:
         main_page = MainPage(driver)
         main_page.click_order_feed_button()
         main_page.wait_for_feed_url()
-        assert "/feed" in driver.current_url
+        assert main_page.is_feed_url()
 
     @allure.title("Проверка появления всплывающего окна с деталями ингредиента")
     def test_ingredient_modal_opens(self, driver):

@@ -8,6 +8,7 @@ class BasePage:
     Базовый класс для всех Page Object.
     Содержит общие методы для взаимодействия с веб-страницами.
     """
+
     def __init__(self, driver):
         """
         Инициализирует базовую страницу.
@@ -95,6 +96,15 @@ class BasePage:
     def get_current_url(self):
         """Возвращает текущий URL страницы."""
         return self.driver.current_url
+
+    @allure.step("Проверить, открыт ли URL ленты заказов")
+    def is_feed_url(self):
+        """
+        Проверяет, открыт ли URL ленты заказов.
+        :return: True, если URL ленты заказов открыт, иначе False.
+        """
+        current = self.get_current_url()
+        return current.endswith("/feed") or "/feed" in current
 
     @allure.step("Ожидать выполнения условия")
     def wait_for_condition(self, condition, time=5):
